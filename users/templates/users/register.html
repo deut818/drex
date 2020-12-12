@@ -1,0 +1,15 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block content %}
+    <center>
+    <div class="card col-12" style="backgroud-image: url('{% static 'img/background.png' %}') no-repeat;">
+        <div class="card col-sm-6 mt-10">
+            <h1>Register here</h1>
+            <form action="{% url 'users:register' %}" method="POST" class="form-group">{% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="form-control btn btn-primary">SignUp</button>
+            </form>
+        </div>
+    </div>
+    </center>
+{% endblock %}

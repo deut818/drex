@@ -1,0 +1,54 @@
+{% extends 'users/base.html' %}
+{% block content %}
+
+<div class="container" id="login" >
+<center>
+    {% for message in messages %}
+    <div id="errors" style="background:black;"><p style="font-size: 25px;"><b style="color: red;">WARNING!</b> {{ message }}</p></div>
+    {% endfor %}
+    <div id="success" style="background:white;"><p style="font-size: 25px;"><b style="color: green;">{{ messagex }}</b> {{ error_msg }}</p></div>
+    <form method="POST" action="{% url 'users:login' %}">
+        {% csrf_token %}
+        <b><h2 style="color: white;">Login to your DrexNet account!</h2></b></center>
+        <div class="input-container">
+
+            <input class="input-field form-control" name="log_em" placeholder="Email" required type="email">
+        </div>
+        <div class="input-container">
+            <input class="input-field form-control" id="pass" name="log_psw" placeholder="Password" required type="password">
+        </div>
+        <p id="text" style="display: none;"><b style="color: red;">WARNING!</b> Caps lock is ON.</p>
+        <p><b style="color: red;">HINT!</b> click the button below to <q>Show Password</q></p>
+        <div class="input-container">
+            <label class="switch">
+                <input type="checkbox" onclick="showpsw()">
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <button class="btn form-control btn-primary" type="submit">Login</button>
+        <hr/>
+        <center><p><a href="{% url 'users:password_reset' %}" style="font-size:24px; color: red;">Forgot password?</a></p></center>
+        <script>
+            function showpsw() {
+              var x = document.getElementById("pass");
+              if (x.type === "password") {
+                x.type = "text";
+              } else {
+                x.type = "password";
+              }
+            }
+            var input = document.getElementById("pass");
+            var text = document.getElementById("text");
+            input.addEventListener("keyup", function(event) {
+
+            if (event.getModifierState("CapsLock")) {
+                text.style.display = "block";
+              } else {
+                text.style.display = "none"
+              }
+            });
+        </script>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DrexNet | {{ user.fname|capfirst }}</title>
+
+    <link rel="stylesheet" href="{% static 'smoke.css' %}" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<section>
+<video src="{% static 'smoke.mp4' %}" autoplay muted></video>
+    <h1>
+        <span>D</span>
+        <span>R</span>
+        <span>E</span>
+        <span>X</span>
+        <span>N</span>
+        <span>E</span>
+        <span>T</span>
+        <span><sup>®</sup></span>
+    </h1>
+</section>
+</body>
+</html>

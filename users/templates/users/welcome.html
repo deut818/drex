@@ -1,0 +1,16 @@
+{% extends "users/base.html" %}
+{% block content %}
+<div class="jumbotron" style="margin-top:80px;">
+<h3>Welcome {{ user.fname|capfirst }} {{ user.lname|capfirst  }} to DrexNet! We are so happy to see you...</h1>
+<h2><b><u>Please!!!</u></b> Read through this before you continue.</h2>
+<h3>Use the following icons in the above bar for easy navigation through the network</h3>
+<p><i class="fas fa-bars" style="font-size: 17px; color:white;"></i></a> ~ To show the main menu (Notifications, Settings, New Posts and more).<hr>
+<i class="fas fa-search" style="font-size: 17px; color:white;"></i></a> ~ To search all users/people at DrexNet.<hr>
+<i class="fas fa-home" style="font-size: 17px; color:white;"></i></a> ~ To see recent posts from your friends, Groups and pages.<hr>
+<i class="fas fa-bell" style="font-size: 17px; color:white;"></i></a> ~ To see all your notifications from posts, blog posts, medicle posts and new music.<hr>
+<i class="fas fa-user" style="font-size: 17px; color:white;"></i></a> ~ To see new friend requests and add new friends.<hr>
+<i class="fas fa-cog" style="font-size: 17px; color:white;"></i></a> ~ To display the settings menu where you can logout, change privacy settings, and also change your password.<hr>
+</p>
+<a href="{% url 'profile' %}" class="btn btn-primary">See Your Profile</a>
+</div>
+{% endblock %}

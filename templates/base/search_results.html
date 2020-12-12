@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+.res {
+  display: inline-block;
+  padding: 0 25px;
+  height: 50px;
+  font-size: 16px;
+  line-height: 50px;
+  border-radius: 25px;
+  background-color: #f8070759;
+}
+
+.res img {
+  float: left;
+  margin: 0 10px 0 -25px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+</style>
+<div class="jumbotron" style="background: rgba(0, 0, 0, 0.767)">
+<h6>{{ message|safe }}</h6> <hr>
+{% for result in query_set %}
+<div class="res">
+  <a href="{{ result.get_absolute_url }}" style="text-decoration: none;color:white;">
+  <img src="{{ result.profile_picture.url }}" alt="Person" width="96" height="96">
+  {{ result.fname }} {{ result.lname }} {{ result.user_admin|safe}}</a><br>
+  
+</div> <hr>
+{% endfor %}
+</div>
+ 
+{% endblock content %}

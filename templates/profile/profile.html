@@ -1,0 +1,101 @@
+{% extends "profile/base.html" %}
+
+{% block content %}
+<div class="containers">
+<div class="header col-14">
+    <center>
+        <div class="cover img-fluid col-14"
+          style="background-image: url('{{ user.cover_photo.url }}');background-size: cover;background-position: center; background-repeat: no-repeat; height: auto;max-width: 100%;">
+          <a href="{{ user.get_absolute_url }}" style='text-decoration:none;color:gray;'>
+            <img class="" src="{{ user.profile_picture.url }}" alt="Card image" width="150px" height="150px"
+              style="border-radius: 50%;margin-top: 25%;border: 3px solid red;background: black;">
+            <div class="card col-md-4" style="background: rgba(255, 0, 0, 0.37);" id="user_card">
+              <div class="card-body">
+                <h4 class="card-title text-light">{{ user.fname|capfirst }} {{ user.lname|capfirst }} {{ user.user_admin|safe }}
+                </h4>
+                <h5>{{ user.city|capfirst }}, {{ user.country }}</h5>
+                {% if friends_count > 1 %}
+                <h5>{{ friends_count }} Friends</h5>
+                {% else %}
+                <h5>{{ friends_count }} Friend</h5>
+                {% endif %}
+              </div>
+            </div>
+        </div>
+      </center>
+</div>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <a class="Icon" class="nav-link iconNav" href="{% url 'features' %}">
+    <i class="fas fa-camera" style="font-size:17px;color:rgb(91, 2, 255);text-shadow:2px 2px 4px #000000;"></i>
+  </a>
+  <a class="Icon" class="nav-link iconNav" href="#">
+    <i class="fas fa-users" style="font-size:17px;color:rgb(91, 2, 255);text-shadow:2px 2px 4px #000000;"></i>
+  </a>
+  <a class="Icon" class="nav-link iconNav" href="{{ user.get_update_absolute_url }}">
+    <i class="fas fa-edit" style="font-size:17px;color:rgb(91, 2, 255);text-shadow:2px 2px 4px #000000;"></i>
+  </a>
+  <a class="Icon" class="nav-link iconNav" href="#">
+    <i class="fas fa-music " style="font-size:17px;color:rgb(91, 2, 255);text-shadow:2px 2px 4px #000000;"></i>
+  </a>
+  <a class="Icon" class="nav-link iconNav" href="{% url 'users:logout' %}">
+    <i class="fas fa-info" style="font-size:17px;color:rgb(91, 2, 255);text-shadow:2px 2px 4px #000000;"></i>
+  </a>
+    <!-- Toggler/collapsibe Button -->
+    
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+      </ul>
+    </div>
+  </nav>                                     
+<div class="spinner-grow text-muted"></div>
+<div class="spinner-grow text-primary"></div>
+<div class="spinner-grow text-success"></div>
+<div class="spinner-grow text-info"></div>
+<div class="spinner-grow text-warning"></div>
+<div class="spinner-grow text-danger"></div>
+<div class="spinner-grow text-secondary"></div>
+<div class="spinner-grow text-dark"></div>
+<div class="spinner-grow text-light"></div>
+
+
+
+  <style>
+    .res {
+      display: inline-block;
+      padding: 0 25px;
+      height: 50px;
+      font-size: 16px;
+      line-height: 50px;
+      border-radius: 25px;
+      background-color: #f8070759;
+    }
+    
+    .res img {
+      float: left;
+      margin: 0 10px 0 -25px;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+    }
+    </style>
+    <div class="jumbotron" style="background: rgba(0, 0, 0, 0.767)">
+    {% for friend in friends %}
+    <div class="res">
+      <a href="{{ friend.get_absolute_url }}" style="text-decoration: none;color:white;">
+      <img src="{{ friend.profile_picture.url }}" alt="Person" width="96" height="96">
+      {{ friend.fname|capfirst }} {{ friend.lname|capfirst }} {{ friend.user_admin|safe}}</a><br>
+      
+    </div> <hr>
+    {% endfor %}
+    </div>
+{% endblock content %}

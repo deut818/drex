@@ -1,0 +1,167 @@
+ @charset "utf-8";
+
+ body{
+ background:gray;
+ }
+ a{
+     font-family: 'orbitron', cursive;
+    }
+    input[type="text"]{
+        font-family: 'orbitron', cursive;
+        background: rgba(27,54,215,.2);
+        border: 2px solid #fff;
+        color: black;
+    }
+    input[type="email"]{
+        font-family: 'orbitron', cursive;
+        background: rgba(27,54,215,.2);
+        border: 2px solid #fff;
+        color: black;
+    }
+    input[type="number"]{
+        font-family: 'orbitron', cursive;
+        background: rgba(27,54,215,.2);
+        border: 2px solid #fff;
+        color: black;
+    }
+    input[type="password"]{
+        font-family: 'orbitron', cursive;
+        background: rgba(27,54,215,.2);
+        border: 2px solid #fff;
+        color: black;
+    }
+    button{
+        font-family: 'orbitron', cursive;
+        background: blue;
+    }
+    h1, h2, h3, h4, h5, h6, b, p, i, q{
+        font-family: 'orbitron', cursive;
+    }
+    .container{
+        clip-path: polygon(0% 0%, 43% 0%, 48% 5%, 100% 5%, 100% 35%, 97% 38%, 97% 67%, 100% 70%, 100% 100%, 42% 100%, 36% 95%, 0 95%, 0 55%, 3% 53%, 3% 28%, 0% 25%);
+        background: rgba(27,54,215,.5);
+        width: 80%;
+        height: 70%;
+        border: 5px solid black;
+        padding: 40px;
+        margin-bottom: 50px;
+    }
+.trapezoid {
+	border-top: 25px solid rgba(27,54,215,.9);
+	border-left: 25px solid transparent;
+	height: 0;
+	width: 40%;
+	position: absolute;
+	top: 8%;
+	left: 60%;
+}
+    .spinner-box {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: transparent;
+    }
+    .leo {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%
+    }
+    .blue-orbit {
+        width: 165px;
+        height: 165px;
+        border: 1px solid blue;
+        -webkit-animation: spin3D 2s linear 0s infinite;
+        animation: spin3D 2s linear 0s infinite;
+    }
+    .green-orbit {
+        width: 120px;
+        height: 120px;
+        border: 1px solid green;
+        -webkit-animation: spin3D 1s linear 0s infinite;
+        animation: spin3D 1s linear 0s infinite;
+    }
+    .red-orbit {
+        width: 90px;
+        height: 90px;
+        border: 1px solid red;
+        -webkit-animation: spin3D 1s linear 0s infinite;
+        animation: spin3D 1s linear 0s infinite;
+    }
+    .white-orbit {
+        width: 60px;
+        height: 60px;
+        border: 2px solid white;
+        -webkit-animation: spin3D 10s linear 0s infinite;
+        animation: spin3D 10s linear 0s infinite;
+    }
+    .w1 {
+        transform: rotate3d(1,1,1,90deg);
+    }
+    .w2 {
+        transform: rotate3d(1,2,.5,90deg);
+    }
+    .w3 {
+        transform: rotate3d(2,1,.5,90deg);
+    }
+
+    @keyframes spin3D{
+        from{
+            transform: rotate3d(.5,.5,.5,360deg);
+        }
+        to{
+            transform: rotate3d(0deg)
+        }
+    }
+
+    .leo-border-1 {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        padding: 3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background: rgb(63,249,220);
+        background: linear-gradient(0deg,rgba(63,249,220,0.1) 33%, rgba(63,249,220,1) 100%);
+        -webkit-animation: spin3D 1.8s linear 0s infinite;
+        animation: spin3D 1.8s linear 0s infinite;
+    }
+    .leo-core-1 {
+        width: 100%;
+        height: 100%;
+        background: #37474faa;
+        border-radius: 50%;
+    }
+
+    .leo-border-2 {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        padding: 3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background: rgb(63,249,220);
+        background: linear-gradient(0deg,rgba(255,171,145,0.1) 33%, rgba(255,171,145,1) 100%);
+        -webkit-animation: spin3D 2.2s linear 0s infinite;
+        animation: spin3D 2.2s linear 0s infinite;
+    }
+    .leo-core-2 {
+        width: 100%;
+        height: 100%;
+        background: #ffab91aa;
+        border-radius: 50%;
+    }
+    .clscroll{
+         height: 200px;
+         width: 300px;
+         background: black;
+         overflow-x: hidden;
+         overflow-y: auto;
+        }

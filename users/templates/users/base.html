@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DrexNet | {{ user.fname|capfirst }}</title>
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'js.cookie.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'users/drex.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css.map' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css.map' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/all.min.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
+     <link href="https://fonts.googleapis.com/css?family=Audiowide|Orbitron|Press+Start+2P|Turret+Road&display=swap" rel="stylesheet">
+<script>
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('txt').innerHTML =
+                h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+        function searchIcon() {
+            document.getElementById("searchbar").style.display = "inline-block";
+            document.getElementById("searchicon").style.display = "inline-block";
+            document.getElementById("txt").style.display = "none";
+            document.getElementById("navi").style.display = "none";
+            document.getElementById("navi2").style.display = "none";
+        }
+
+        // var csrftoken = Cookies.get('csrftoken');
+        // function csrfSafeMethod(method) {
+        //     // these HTTP methods do not require CSRF protection
+        //     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        // }
+        // $.ajaxSetup({
+        //     beforeSend: function (xhr, settings) {
+        //         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+        //             xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        //         }
+        //     }
+        // });
+        // $(document).ready(function () {
+        //     {% block domready %}
+        //     {% endblock %}
+        // });
+    </script>
+</head>
+{% include "users/css.html" %}
+<body onload="startTime()">
+    {% if user.is_authenticated %}
+    {% include "base/nav.html" %}
+    {% else %}
+    {% include 'users/navbar.html' %}
+    {% endif %}
+    {% block content %}
+        
+    {% endblock %}
+    {% include 'firebase.html' %}
+</body>
+</html>

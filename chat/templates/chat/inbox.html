@@ -1,0 +1,71 @@
+{% extends "chat/base.html" %}
+{% block content %}
+{% load static %}
+<div class="container-fluid h-100">
+    <div class="row justify-content-center h-100">
+
+        <div class="col-md-4 col-xl-3 chat">
+            <div class="card mb-sm-3 mb-md-0 contacts_card">
+                <div class="card-header">
+                    <div class="input-group">
+                        <input type="text" placeholder="Search..." name="" class="form-control search">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body contacts_body">
+                    <ui class="contacts">
+                        {% for object in object_list %}
+                        {% if request.user == object.first %}
+                        <li class="active">
+                            <div class="d-flex bd-highlight">
+                                <a href="/chat/messages/{{ object.second.username }}/">
+                                    <div class="img_cont">
+                                        <img src="{{ object.second.profile_picture.url }}"
+                                            class="rounded-circle user_img">
+                                        <span class="online_icon"></span>
+                                    </div>
+                                    <div class="user_info">
+                                        <span>{{ object.second.get_fullname|capfirst|safe }}</span>
+                                        <p>{{ object.updated|timesince }}</p>
+                                        <table>
+                                            <tr><th>Last Seen</th><td>{% if object.second.last_seen %}{{ object.second.last_seen|timesince }}{% else %}awhile{% endif %} ago</td></tr>
+                                            <tr><th>Online</th><td>{{ object.second.online }}</td></tr>
+                                          </table>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="active">
+                            <div class="d-flex bd-highlight">
+                                <a href="/chat/messages/{{ object.first.username }}/">
+                                    <div class="img_cont">
+                                        <img src="{{ object.first.profile_picture.url }}"
+                                            class="rounded-circle user_img">
+                                        <span class="online_icon offline"></span>
+                                    </div>
+                                    <div class="user_info">
+                                        <span>{{ object.first.get_fullname|capfirst|safe }}</span>
+                                        <p>{{ object.updated|timesince }}</p>
+                                        <table>
+                                            <tr><th>Last Seen</th><td>{% if object.first.last_seen %}{{ object.first.last_seen|timesince }}{% else %}awhile{% endif %} ago</td></tr>
+                                            <tr><th>Online</th><td>{{ object.first.online }}</td></tr>
+                                          </table>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                        {% endif %}
+                        {% empty %}
+                        No messages yet
+                        {% endfor %}
+                    </ui>
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock %}

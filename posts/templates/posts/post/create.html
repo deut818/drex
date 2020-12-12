@@ -1,0 +1,30 @@
+
+<div class="jumbotron" style="background: rgba(0, 0, 0, 0.4);margin-bottom: 10px">
+<!-- <img src="{{ request.GET.image }}" class="image-preview">
+<video width="320" height="240" controls>
+    <source src="movie.mp4" type="video/mp4">
+    <source src="movie.ogg" type="video/ogg">
+  Your browser does not support the video tag.
+  </video> 
+  <audio controls>
+    <source src="horse.ogg" type="audio/ogg">
+    <source src="horse.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+  </audio>  -->
+<form action="." name="new_post" method="post" enctype="multipart/form-data">{% csrf_token %}
+  <div class="upload-btn-wrapper">
+      <button class="btn"><i class="fas fa-camera"></i> Image</button>
+      {{ form.image }}
+    </div>
+    <div class="upload-btn-wrapper">
+        <button class="btn"><i class="fas fa-video"></i> Video</button>
+        {{ form.video }}
+      </div>
+      <div class="upload-btn-wrapper">
+          <button class="btn"><i class="fas fa-music"></i> Audio</button>
+          {{ form.audio }}
+        </div>
+    {{ form.title }}
+    <button type="submit" class="post-btn">Post</button>
+</form>
+</div>

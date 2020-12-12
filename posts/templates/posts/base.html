@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DrexNet | {{ user.fname|capfirst }}</title>
+    <script src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'js.cookie.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css">
+    <link rel="manifest" href="{% static 'manifest.json' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'bootstrap4/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/fontawesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/all.min.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Audiowide|Orbitron|Press+Start+2P|Turret+Road&display=swap" rel="stylesheet">
+    
+    <script>
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('txt').innerHTML =
+                h + ":" + m + ":" + s;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+            return i;
+        }
+
+        function searchIcon() {
+            document.getElementById("searchbar").style.display = "block";
+            document.getElementById("searchicon").style.display = "block";
+            document.getElementById("txt").style.display = "none";
+            document.getElementById("navi").style.display = "none";
+            document.getElementById("navi2").style.display = "none";
+        }
+        var csrftoken = Cookies.get('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        $(document).ready(function () {
+            {% block domready %}
+            {% endblock %}
+        });
+    </script>
+
+</head>
+
+<body onload="startTime()">
+    <style>
+        body {
+            background: green;
+        }
+        a,
+        label {
+            font-family: 'orbitron', cursive;
+        }
+
+        input[type="text"] {
+            font-family: 'orbitron', cursive;
+            background: rgba(27, 54, 215, .2);
+            border: 2px solid #fff;
+            color: black;
+        }
+
+
+        button {
+            font-family: 'orbitron', cursive;
+            background: blue;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        b,
+        p,
+        i,
+        q {
+            font-family: 'orbitron', cursive;
+        }
+
+       
+        /* The message box is shown when the user clicks on the password field */
+       /* Add a green text color and a checkmark when the requirements are right */
+        .valid {
+            color: green;
+        }
+
+        .valid:before {
+            position: relative;
+            left: -35px;
+            content: "✔";
+        }
+
+        /* Add a red text color and an "x" when the requirements are wrong */
+        .invalid {
+            color: red;
+        }
+
+        .invalid:before {
+            position: relative;
+            left: -35px;
+            content: "✖";
+        }
+
+        .chip {
+            display: inline-block;
+            padding: 10px;
+            height: auto;
+            font-size: 20px;
+            margin-top: 25%;
+            border-radius: 10px;
+            margin-left: 0%;
+            margin-bottom: 0%;
+            background-color: #f8070759;
+            /* max-width: 100%; */
+            color: white;
+        }
+
+        .chip img {
+            float: left;
+            border: 3px solid red;
+            border-radius: 50%;
+            background-color: black;
+        }
+
+        .location {
+            font-size: 16px;
+            color: #000;
+        }
+
+        .dob {
+            font-size: 15px;
+            font-style: italic;
+            color: rgb(0, 0, 0);
+        }
+
+        .iconNav {
+            display: none;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .iconNav {
+                display: inline;
+            }
+        }
+
+        input[type=search] {
+            display: none;
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-top: none;
+            border-right: none;
+            border-radius: 50px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.062);
+            padding: 3px 3px 3px 25px;
+        }
+        nav form button{
+            display: none;
+            background: rgba(0, 0, 0, 0);
+            border: none;
+        }
+        .post-create{
+            width: 100%;
+            height: 60px;
+            font-size: 20px;
+            color: white;
+            background: #fff;
+            border-radius: 10px;
+        }
+        .post-create:focus{
+            background: #000;
+        }
+        .post-btn {
+            color: white;
+            font-size: 25px;
+            width: 80px;
+            height: 40px;
+            margin-top: 10px;
+            border-top:none;
+            border-left:none;
+            border-right:none;
+            border-radius: 5px;
+            border-bottom: none;
+            background: grey;
+        }
+        .post-btn:hover{
+            background: rgba(255, 255, 255, 0.212);
+        }.upload-btn-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .btn {
+            border: 2px solid gray;
+            color: gray;
+            background-color: white;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .upload-btn-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+    </style>
+    {% include 'base/nav.html'%}
+    {% block content %}
+
+    {% endblock %}
+    {% include 'firebase.html' %}
+</body>
+
+</html>

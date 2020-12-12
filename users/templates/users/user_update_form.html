@@ -1,0 +1,10 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="jumbotron" style="background-color: rgba(0, 0, 0, 0.774); margin-top: 50px;">
+<form action="." class="form-group" method="post" enctype="multipart/form-data">{% csrf_token %}
+{{ form|crispy }}
+<button type="submit" class="btn btn-primary">Update Profile</button>
+</form>
+</div>
+{% endblock %}

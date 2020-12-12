@@ -1,0 +1,86 @@
+{% extends "users/base.html" %}
+{% load drexnet_tags %}
+{% block content %}
+<style>
+.containerx{
+  margin-top: 50px;
+  padding: 10px;
+  width: 100%;
+  height: auto;
+  background: rgba(0, 0, 0, 0.753);
+}
+div.card.user {
+  padding: 0;
+  margin-bottom: 10px;
+}
+div.card.user .info img {
+  float: left;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background: black;
+}
+</style>
+<div class="containerx">
+    {% for user_obj in user_list %}
+    {% if request.user.id == user_obj.id %}
+    <script>
+      document.getElementById("user_card").style.display = "none";
+    </script>
+    {% else %}
+    <div class="card user">
+      <div class="info"><img src="{{ user_obj.profile_picture.url }}" alt="{{ user_obj.get_fullname }}">
+        <a href="{{ user_obj.get_absolute_url }}"
+        style='text-decoration:none;color:black; font-size: 20px;margin: 10px;'>{{ user_obj.get_fullname|capfirst|safe }}</a>
+        <br><h5 style="margin-left: 110px;color: gray;"><span class="{{ user_obj.slug }}{{ user_obj.id }}">{{ user_obj.followers.count|cashuer }}</span> follower{{ user_obj.followers.count|pluralize }}</h5>
+        <a href="#" data-id="{{ user_obj.id }}"
+        data-action="{% if request.user in user_obj.followers.all %}un{% endif %}follow"
+        style="color:rgb(255, 255, 255);text-decoration:none;font-size:20px;padding:8px 10px;background: green; border-radius: 25px;margin: 10px;"
+        class="{{ user_obj.id }}{{ user_obj.slug }} button">{% if request.user not in user_obj.followers.all %}Follow{% else %}Unfollow{% endif %}</a>
+      </div>
+    </div>
+  {% endif %}
+  <script>
+    var csrftoken = Cookies.get('csrftoken');
+    function csrfSafeMethod(method) {
+      // these HTTP methods do not require CSRF protection
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+      beforeSend: function (xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+    $(document).ready(function () {
+      $('a.{{ user_obj.id }}{{ user_obj.slug }}').click(function (e) {
+        e.preventDefault();
+        $.post('{% url "users:user_follow" %}',
+          {
+            id: $(this).data('id'),
+            action: $(this).data('action')
+          },
+          function (data) {
+            if (data['status'] == 'ok') {
+              var previous_action = $('a.{{ user_obj.id }}{{ user_obj.slug }}').data('action');
+              // toggle data-action
+              $('a.{{ user_obj.id }}{{ user_obj.slug }}').data('action',
+                previous_action == 'follow' ? 'unfollow' : 'follow');
+              // toggle link text
+              $('a.{{ user_obj.id }}{{ user_obj.slug }}').text(
+                previous_action == 'follow' ? 'Unfollow' : 'Follow');
+              // update total followers
+              var previous_followers = parseInt(
+                $('span.{{ user_obj.slug }}{{ user_obj.id }}').text());
+              $('span.{{ user_obj.slug }}{{ user_obj.id }}').text(previous_action == 'follow' ?
+                previous_followers + 1 : previous_followers - 1);
+            }
+          }
+        );
+      });
+    });
+  </script>
+  {% endfor %}
+</div>
+{% endblock %}

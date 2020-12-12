@@ -1,0 +1,180 @@
+[
+{
+  "model": "users.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$Ml8Fdd3Jq522$8sJ4Z2j6dzqzyBeXn5Qx9wEhI3Xa7/RJfYmDXM6I+q8=",
+    "last_login": "2020-05-02T12:37:55.800Z",
+    "fname": "Joshua",
+    "lname": "Franklin",
+    "profile_picture": "images/profile/JOSH_o7eWJx5.jpg",
+    "gender": "MALE",
+    "city": "Kampala",
+    "country": "UG",
+    "email": "josfranklinm@gmail.com",
+    "cover_photo": "images/cover/bg_4.jpg",
+    "date_of_birth": "2002-04-10",
+    "reg_date": "2020-04-27T12:01:40.985Z",
+    "username": "joshfranky",
+    "user_admin": "",
+    "is_active": true,
+    "is_admin": false
+  }
+},
+{
+  "model": "users.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$pMyYbv2HS2hb$IdeDRDtLmKR0hmEy2uqR+GVTFhF5aWQtleczP1AegN0=",
+    "last_login": "2020-05-03T10:03:22.250Z",
+    "fname": "Josh",
+    "lname": "King X",
+    "profile_picture": "images/profile/avatar.png",
+    "gender": "MALE",
+    "city": "Kampala",
+    "country": "UG",
+    "email": "admin@drex.com",
+    "cover_photo": "images/cover/background.jpg",
+    "date_of_birth": "2002-04-30",
+    "reg_date": "2020-04-27T12:17:34.333Z",
+    "username": "joshkingx",
+    "user_admin": "<i class=\"fas fa-check-circle\" style=\"font-size:15px;color:rgb(46, 218, 12);\"></i>",
+    "is_active": true,
+    "is_admin": true
+  }
+},
+{
+  "model": "users.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$kCoSfuyqmCuC$MIN4FhKPvJhsuM4tqPv3E151lrM6hIUG1BQGfcpHjeo=",
+    "last_login": "2020-05-04T21:46:23.940Z",
+    "fname": "glosh",
+    "lname": "killer",
+    "profile_picture": "images/profile/download_AkLC1yk.png",
+    "gender": "FEMALE",
+    "city": "J\u00c4RF\u00c4LLA",
+    "country": "SE",
+    "email": "gloshkiller@gmail.com",
+    "cover_photo": "images/cover/background.jpg",
+    "date_of_birth": "1997-03-15",
+    "reg_date": "2020-04-30T14:17:36.537Z",
+    "username": "gloshkiller",
+    "user_admin": "",
+    "is_active": true,
+    "is_admin": false
+  }
+},
+{
+  "model": "users.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$180000$yXrQ3FO0cnnH$3m3TdEnaPCrkZAtMoRtRReJ+VS55cfJvd+FRvS7mSXk=",
+    "last_login": "2020-04-30T14:30:31.681Z",
+    "fname": "tony",
+    "lname": "krypton",
+    "profile_picture": "images/profile/avatar.png",
+    "gender": "MALE",
+    "city": "Kampala",
+    "country": "UG",
+    "email": "tonykrypton@gmail.com",
+    "cover_photo": "images/cover/background.jpg",
+    "date_of_birth": "1999-04-14",
+    "reg_date": "2020-04-30T14:30:31.217Z",
+    "username": "tonykrypton",
+    "user_admin": "",
+    "is_active": true,
+    "is_admin": false
+  }
+},
+{
+  "model": "users.contact",
+  "pk": 7,
+  "fields": {
+    "user_from": 2,
+    "user_to": 1,
+    "created": "2020-04-30T14:01:15.019Z"
+  }
+},
+{
+  "model": "users.contact",
+  "pk": 12,
+  "fields": {
+    "user_from": 3,
+    "user_to": 2,
+    "created": "2020-04-30T14:18:48.316Z"
+  }
+},
+{
+  "model": "users.contact",
+  "pk": 13,
+  "fields": {
+    "user_from": 3,
+    "user_to": 1,
+    "created": "2020-04-30T14:21:09.126Z"
+  }
+},
+{
+  "model": "users.contact",
+  "pk": 14,
+  "fields": {
+    "user_from": 1,
+    "user_to": 3,
+    "created": "2020-04-30T14:27:28.492Z"
+  }
+},
+{
+  "model": "users.contact",
+  "pk": 16,
+  "fields": {
+    "user_from": 4,
+    "user_to": 2,
+    "created": "2020-04-30T14:30:55.408Z"
+  }
+},
+{
+  "model": "users.contact",
+  "pk": 17,
+  "fields": {
+    "user_from": 4,
+    "user_to": 3,
+    "created": "2020-04-30T14:30:59.356Z"
+  }
+},
+{
+  "model": "users.contact",
+  "pk": 18,
+  "fields": {
+    "user_from": 2,
+    "user_to": 3,
+    "created": "2020-04-30T15:06:33.388Z"
+  }
+},
+{
+  "model": "users.contact",
+  "pk": 19,
+  "fields": {
+    "user_from": 2,
+    "user_to": 4,
+    "created": "2020-04-30T15:06:36.254Z"
+  }
+},
+{
+  "model": "users.contact",
+  "pk": 32,
+  "fields": {
+    "user_from": 1,
+    "user_to": 4,
+    "created": "2020-04-30T19:37:33.705Z"
+  }
+},
+{
+  "model": "users.contact",
+  "pk": 35,
+  "fields": {
+    "user_from": 1,
+    "user_to": 2,
+    "created": "2020-05-02T15:42:05.891Z"
+  }
+}
+]

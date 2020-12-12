@@ -1,0 +1,309 @@
+{% extends "posts/base.html" %}
+{% block content %}
+{% load drexnet_tags %}
+<style>
+    .post {
+        margin-bottom: 10px;
+        padding: 0px;
+    }
+
+    .post .post-header {
+        border-bottom: 2px solid gray;
+    }
+
+    .post .post-header .author-photo {
+        float: left;
+        padding: 5px;
+    }
+
+    .post .post-header .author-name {
+        float: left;
+        padding: 5px;
+        margin-right: 10px;
+    }
+
+    .post .post-header .post-timestamp {
+        margin-top: 10px;
+        font-size: 10px;
+        color: gray;
+    }
+
+    .post .post-header .author-name a {
+        color: rgb(48, 47, 47);
+        text-decoration: none;
+    }
+
+    .post .post-header .post-menu {
+        float: right;
+        padding: 5px;
+        position: relative;
+    }
+
+    .show {
+        display: block;
+    }
+
+    .post .post-footer {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .post .post-footer .icon {
+        float: left;
+        color: gray;
+        width: 32.5%;
+        justify-content: center;
+        background-color: white
+    }
+
+    .post .post-footer .icon p {
+        color: white;
+        background: red;
+        border-radius: 25px;
+    }
+</style>
+<div class="container" style="margin: 0; background: rgba(0, 0, 0, 0.699); padding-top: 70px;width:100%; height:auto;">
+    {% createpost %}
+
+    {% for post_obj in post_list %}
+    <style>
+            .dropbtn{{ post_obj.id }} {
+            font-size: 20px;
+        }
+
+        .dropdown-content{{ post_obj.id }} {
+            display: none;
+            margin-top: 0px;
+            position: absolute;
+            left: 38%;
+            border-radius: 12px;
+            background-color: rgba(0, 0, 0, 0.7);
+            min-width: 160px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
+            z-index: 1;
+        }
+
+        .dropdown-content{{ post_obj.id }} a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content{{ post_obj.id }} a:hover {
+            background-color: #ddd;
+        }
+        .reactions{{ post_obj.id }} {
+            position: absolute;
+            font-family: Segoe UI Emoji;
+            font-size: 2em;
+            background-color: violet;
+            border-radius: 40px;
+            padding: 5px 5px;
+            width: 55%;
+            display: none;
+            z-index: 1;
+            bottom: 175px;
+        }
+
+        .reactions{{ post_obj.id }} a {
+            text-decoration: none;
+        }
+
+        .post .post-comments{{ post_obj.id }} form .comment {
+            height: 40px;
+            font-size: 13px;
+            border-radius: 25px;
+            border-bottom: 2px solid gray;
+            border-top: none;
+            box-shadow: 5px 5px 12px gray;
+        }
+    </style>
+    <div class="card col-sm-10 post">
+        <div class="post-header">
+            <div class="author-photo">
+                <img src="{{ post_obj.user.profile_picture.url }}"
+                    alt="{{ post_obj.user.fname }} {{ post_obj.user.lname }}" width="40" height="40"
+                    style="border-radius: 50%; background: rgba(0, 0, 0, 1);">
+            </div>
+            <div class="author-name">
+                <a href="{{ post_obj.user.get_absolute_url }}">
+                    &nbsp;{{ post_obj.user.fname|capfirst }} {{ post_obj.user.lname|capfirst }}
+                </a> {{ post_obj.user.user_admin|safe }}
+            </div>
+            <div class="post-menu">
+            <i class="fas fa-ellipsis-v dropbtn{{ post_obj.id }}"></i>
+
+            </div>
+            <div class="post-timestamp"><i class="fas fa-clock"></i> {{ post_obj.created|timesince }}</div>
+            <br>
+            <div id="post-menu" class="dropdown-content{{ post_obj.id }}">
+                {% if request.user == post_obj.user %}
+                <a href="#">Delete this post</a>
+                {% else %}
+                <a href="#">Block this User</a>
+                <a href="#">Report abuse or spam</a>
+                {% endif %}
+                <a href="#">Share this Post</a>
+                <a href="#">Embed in your website</a>
+            </div>
+        </div>
+        <div class="post-body">
+            <p>{{ post_obj.title|truncatewords:10 }}</p>
+            {% if post_obj.video.url is not "" %}
+            <video width="100%" height="100%" controls>
+                <source src="{{ post_obj.video.url }}" type="video/mp4">
+                <source src="{{ post_obj.video.url }}" type="video/ogg">
+                <source src="{{ post_obj.video.url }}" type="video/wav">
+            </video>
+            {% elif post_obj.image.url is not "" %}
+            <img src="{{ post_obj.image.url }}" alt="..." width="100%" height="auto">
+            {% elif post_obj.audio.url is not "" %}
+            <audio controls>
+                <source src="{{ post_obj.audio.url }}" type="audio/ogg">
+                <source src="{{ post_obj.audio.url }}" type="audio/mpeg">
+            </audio>
+            {% endif %}
+            
+        </div>
+        <div class="post-footer">
+            <div class="icon">
+                {% with total_likes=post_obj.users_like.count users_like=post_obj.users_like.all jerry='18500' %}
+                <a href="#" data-id="{{ post_obj.id }}"
+                    data-action="{% if request.user in users_like %}un{% endif %}like" class="{{ post_obj.id }} button">
+                    {% if request.user not in users_like %}
+                    <i class="fas fa-thumbs-up reaction_btn{{ post_obj.id }}" style="color: gray;"></i>
+                    {% else %}
+                    <i class="fas fa-thumbs-up reaction_btn{{ post_obj.id }}"
+                        style="color:blue;text-shadow:2px 2px 4px #8b9bf3;"></i>
+                    {% endif %}
+                </a>
+
+                <p class="{{ post_obj.id }}{{ post_obj.user.id }}">{{ total_likes }}</p>
+                
+            </div>
+            <div class="icon">
+                {% if post_obj|viewscount|cashuer == 0 %}
+                <i class="fas fa-eye"></i>
+                {% else %}
+                <i class="fas fa-eye" style="color:rgb(238, 59, 89);text-shadow:2px 2px 4px #eea1a1;"></i>
+                {% endif %}
+                <p class="counter">{{ post_obj|viewscount|cashuer }}</p>
+            </div>
+            <div class="icon">
+                <i class="fas fa-comment show{{ post_obj.id }}" style="{% if post_obj.comments.count > 0 %}color:aqua;{% endif %}"></i>
+                <p class="counter">{{ post_obj.comments.count|cashuer }}</p>
+            </div>
+            {% endwith %}
+        </div>
+        <div class="post-comments{{ post_obj.id }}" style="display: none;">
+            <div class="comment">
+                {% for comment in post_obj.comments.all %}
+                    <p class="comment-info">
+                    Comment {{ comment.body|linebreaks }} by {{ comment.user.get_fullname|safe }}
+                    {{ comment.created|timesince }}
+                    </p>
+                {% empty %}
+                    <p>No Comments to show!</p>
+                {% endfor %}
+                
+            </div>
+            <p id="nn{{ post_obj.id }}"></p>
+            <p class="nn{{ post_obj.id }}"></p>
+            <textarea class="comm{{ post_obj.id }} form-control comment" placeholder="Comment on this post"></textarea>
+            <button class="commbtn{{ post_obj.id }}">Comment</button>
+        </div>
+    </div>
+    <script>
+        var csrftoken = Cookies.get('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        $(document).ready(function () {
+            var random_id = parseInt(Math.random() * 999999);
+            var like_counter = $('p.{{ post_obj.id }}{{ post_obj.user.id }}').attr("class", random_id);
+            var like_btn = $('a.{{ post_obj.id }}').attr("class", random_id);
+            var trigger_btn = $('.reaction_btn{{ post_obj.id }}')
+            var reaction_container = $('.reactions{{ post_obj.id }}')
+            var emoji_reaction = $('.reactions a')
+            var comment_div = $('.post-comments{{ post_obj.id }}')
+            var comment_btn = $('.show{{ post_obj.id }}')
+            var dropdown_btn = $('.dropbtn{{ post_obj.id }}')
+            var dropdown_content = $('.dropdown-content{{ post_obj.id }}')
+            var commFormData = $('.comm{{ post_obj.id }}')
+            var commSubmit = $('.commbtn{{ post_obj.id }}')
+            var err
+            var pID = {{ post_obj.id }};
+            dropdown_btn.click(function(){
+                dropdown_content.css('display', 'block')
+            })
+            dropdown_content.mouseleave(function(){
+                $(this).css('display', 'none')
+            })
+            // trigger_btn.hover(function () {
+            //     reaction_container.css('display', 'block')
+            // });
+
+            // emoji_reaction.hover(function () {
+            //     $(this).fadeToggle(600)
+
+            // })
+            comment_btn.click(function(){
+                comment_div.css('display', 'block')
+            })
+            commSubmit.click(function(e) {
+                e.preventDefault()
+                console.log(commFormData.val())
+                if (commFormData.val() != '') {
+                    $.post(
+                        '{% url "posts:comment" %}',
+                        {
+                            post_id: pID,
+                            comm: commFormData.val()
+                        }
+                    )
+                    commFormData.val('Comment posted Successfully!')
+                    
+                } else {
+                    err = $(".nn{{ post_obj.id }}").text("Comment can't be empty")
+                }
+            })
+            like_btn.click(function (e) {
+                e.preventDefault();
+                $.post('{% url "posts:like" %}',
+                    {
+                        id: $(this).data('id'),
+                        action: $(this).data('action')
+                    },
+                    function (data) {
+                        if (data['status'] == 'ok') {
+                            var previous_action = like_btn.data('action');
+                            // toggle data-action
+                            like_btn.data('action', previous_action == 'like' ?
+                                'unlike' : 'like');
+                            // toggle link text
+                            like_btn.html(previous_action == 'like' ? "<i class='fas fa-thumbs-up' style='color:blue;text-shadow:2px 2px 4px #8b9bf3;'></i>" :
+                                "<i class='fas fa-thumbs-up' style='color:gray;'></i>");
+                            // update total likes
+                            var previous_likes = parseInt(like_counter.text());
+                            like_counter.text(previous_action == 'like' ?
+                                previous_likes + 1 : previous_likes - 1);
+                        }
+                    }
+                );
+            });
+
+        });
+    </script>
+    {% endfor %}
+</div>
+{% endblock %}
